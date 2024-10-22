@@ -1,30 +1,4 @@
-
-lettura file JSON
-Paolo Petrozzi
-•
-15 ott
-45
-/100
-45 punti sui possibili 100
-Consegna: Ieri, 17:59
-Si realizzi un file JSON contenente un'anagrafica generica con oggetti JS (es. Nome, Cognome, Eta, Indirizzo, Citta, telefono, ecc...)
-Si realizzi un file HTML che legga il file JSON, remoto, attraverso l'oggetto XMLHttpRequest() e stampi i dati in formato tabellare.
-Commenti sul corso
-Il tuo lavoro
-Con voto
-
-anagrafica Riccardo Di Rosa.html
-HTML
-
-anagrafica.json
-File sconosciuto
-1 commento privato
-
-Paolo Petrozzi04:00
-Non c'è anagrafica.json e non può funzionare
-Aggiungi commento privato…
-
-﻿[
+[
   {
     "nome": "Riccardo",
     "cognome": "Di Rosa",
