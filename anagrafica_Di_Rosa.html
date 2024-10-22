@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Anagrafica</title>
+</head>
+<body>
+
+<h1>Anagrafica</h1>
+<table border="1" id="tabella">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Età</th>
+            <th>Indirizzo</th>
+            <th>Citta</th>
+        </tr>
+    </thead>
+    <tbody id="tab">
+
+    </tbody>
+</table>
+
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'anagrafica.json', true); 
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var dati = JSON.parse(xhr.responseText); 
+            var persone = dati.persone;
+
+            
+            var tbody = document.querySelector('#tabella tbody');
+            persone.forEach(function(persona) {
+                var riga = '<tr><td>' + persona.nome + '</td><td>' + persona.cognome + '</td><td>' + persona.eta +  + persona.indirizzo + '</td><td>' + persona.citta + '<td></tr>';
+                    tab.appendChild(riga);
+            });
+        }
+    };
+
+    xhr.send();
+</script>
+
+</body>
+</html>
