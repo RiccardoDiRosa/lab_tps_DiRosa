@@ -1,0 +1,20 @@
+[
+    {
+        "nome": "Riccardo",
+        "cognome": "Di Rosa",
+        "eta": 18,
+        "indirizzo": "Via Don Enrico, 5",
+        "citta": "Arese",
+        "numeri": ["3519600000","0689140500"]
+    },
+    {
+        "nome": "Matteo",
+        "cognome": "Zappa",
+        "eta": 41,
+        "indirizzo": "Via Nuvolari, 13",
+        "citta": "Novara",
+        "numeri": ["3619602111","0672540000"]
+    }
+]
+
+  

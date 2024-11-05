@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Anagrafica</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+        *, *:before, *:after {
+            box-sizing:border-box;
+        }
+
+        body {
+            padding:24px;
+            font-family:'Source Sans Pro', sans-serif;
+            margin:0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin-right:auto;
+            margin-left:auto;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        table {
+            width:100%;
+            border:4px solid #000;
+            border-radius: 5px;
+        }
+
+        thead {
+            display:flex;
+            width:100%;
+            background:rgba(0, 0, 0,0.2);
+            padding:(12px * 1.5) 0;
+        }
+        tr{
+            display:flex;
+            width:100%;
+            padding:(12px * 1.5) 0;
+        }
+        tbody tr {
+            &:nth-of-type(odd) {
+                background:#5700714a;
+            }
+        }
+
+        td, th {
+            flex: 1 1 20%;
+            text-align:center;
+        }
+
+        th {
+            text-transform:uppercase;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Anagrafica</h1>
+<table id="tabella">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Età</th>
+            <th>Indirizzo</th>
+            <th>Citta</th>
+            <th>Numeri</th>
+        </tr>
+    </thead>
+    <tbody id="tab">
+
+    </tbody>
+</table>
+
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'anagrafica2.json', true); 
+    var tbody = document.getElementById("tab");
+    var arr=["nome","cognome","eta","indirizzo","citta","numeri"];
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var persone = JSON.parse(xhr.responseText);
+            for(i in persone){
+                let persona=persone[i]
+                var r=document.createElement("tr");
+                for(let k=0;k<arr.length;k++){
+                    var c=document.createElement("td");
+                    let n=arr[k];
+                    let e=persona[n];
+                    if(n==="numeri"){
+                        if(e[0]){c.innerHTML+=`Casa: ${e[0]}<br>`}
+                        if(e[1]){c.innerHTML+=`Ufficio: ${e[1]}`}
+                    }else{
+                        c.innerText+=e;
+                    }
+                    r.appendChild(c);
+                }
+                tbody.appendChild(r);
+            }
+        }
+    }
+
+    xhr.send();
+</script>
+
+</body>
+</html>
