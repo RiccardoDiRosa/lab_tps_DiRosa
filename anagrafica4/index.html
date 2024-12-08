@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Anagrafica</title>
+    <style>
+        body {
+            background-color: #e0e0e0; /* Grigio moderno */
+        }
 
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        th {
+        background-color: #909090; /* Grigio opaco */
+        text-align: left;
+        padding: 8px;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            align-items: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #50dfff80; /* Stesso del background del body, per un effetto più leggero */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #e0e0ff; /* Tinta di blu chiaro */
+        }
+
+        td:hover {
+            background-color: #9090ff; /* Tinta di blu leggermente più scura all'hover */
+        }
+        tbody td img{
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Anagrafica</h1>
+<table id="tabella">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Età</th>
+            <th>Indirizzo</th>
+            <th>Citta</th>
+            <th>Numeri</th>
+            <th>Curriculum</th>
+            <th>Portfolio</th>
+        </tr>
+    </thead>
+    <tbody id="tab">
+
+    </tbody>
+</table>
+
+<script>
+    var lettore = new XMLHttpRequest();
+    lettore.open('GET', 'persone.json', true); 
+    var tbody = document.getElementById("tab");
+    var nomicelle=["nome","cognome","eta","indirizzo","citta","numeri"];
+    lettore.onreadystatechange = function() {
+        if (this.status === 200 && this.readyState === 4) {
+            var persone = JSON.parse(this.responseText);
+            //for(let np=0;np<persone.length;np++)
+            for(np in persone){//cicla sulle persone
+                let persona=persone[np];
+                var riga=document.createElement("tr");
+                for(nc in nomicelle){//va inserire le prime celle in base all'array nomicelle di ogni persona
+                    let nomecella=nomicelle[nc];
+                    let cella=document.createElement("td");
+                    let valore=persona[nomecella];
+                    if(nomecella==="numeri"){
+                        if(valore[0]){cella.innerHTML+="Casa: "+valore[0]+"<br>";}
+                        if(valore[1]){cella.innerHTML+="Ufficio: "+valore[1];}
+                    }else{
+                        cella.innerText+=valore;
+                    }
+                    riga.appendChild(cella);
+                }
+
+                //aggiungo foto della persona che rimanda al cv
+                let cella=document.createElement("td");
+                let immagine=document.createElement("img");
+                immagine.src="fototessere/"+persona.id+".jpg";
+                immagine.onclick=function(){
+                    inviocurriculum(persona.id);
+                }
+                cella.appendChild(immagine);
+                riga.appendChild(cella);
+
+                //aggiungo scritta che rimanda al portfolio
+                cella=document.createElement("td");
+                let link=document.createElement("a");
+                link.innerText="PortFolio";
+                link.onclick=function(){
+                    invioportfolio(persona.id);
+                }
+                cella.appendChild(link);
+                riga.appendChild(cella);
+                
+                tbody.appendChild(riga);
+            }
+        }
+    }
+    function inviocurriculum(id){
+        localStorage.setItem("id","json/"+id+".json");
+        window.location.href="curriculum.html";
+    }
+    function invioportfolio(id){
+        localStorage.setItem("id","xml/"+id+".xml");
+        window.location.href="portfolio.html";
+    }
+    lettore.send();
+</script>
+
+</body>
+</html>

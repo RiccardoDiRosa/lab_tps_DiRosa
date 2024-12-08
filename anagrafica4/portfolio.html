@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            background-color: #f0f0f0; /* Colore di sfondo grigio chiaro */
+            padding: 20px;
+            border: 1px solid #ccc;
+            text-align: center; /* Centra il contenuto all'interno del div */
+        }
+
+        /* Stile per i link */
+        a {
+            text-decoration: none; /* Rimuovi il sottolineato */
+            color: #333; /* Colore del testo */
+            padding: 10px 20px; /* Spazio intorno al testo del link */
+            border-radius: 5px; /* Angoli arrotondati */
+            margin: 5px; /* Spazio tra i link */
+            display: inline-block; /* Rendi i link elementi a blocco in linea per poterli allineare */
+        }
+
+        /* Stile per il link quando il mouse ci passa sopra */
+        a:hover {
+            background-color: #e0e0e0; /* Cambia il colore di sfondo al passaggio del mouse */
+        }
+    </style>
+</head>
+<body>
+    <div id="contenitorelink"></div>
+    <script>
+        let xmlpath=localStorage.getItem("id");
+        let lettore=new XMLHttpRequest();
+        lettore.open('GET', xmlpath, true);
+        lettore.onload=function(){//onload e togliere readystate==4
+            if(this.status==200){
+                let oggettoxml=this.responseXML;
+                let contenitore=document.getElementById("contenitorelink")
+                Array.from(oggettoxml.getElementsByTagName("lavoro")).forEach(lavoro=>{
+                    if(lavoro.nodeType==1){//controllare nodetype perchè ci sono degli object text con nodetype 3 da scartare
+                        let a=document.createElement("a");
+                        a.innerText=lavoro.getElementsByTagName("titolo")[0].textContent //deve essere il nome del lavoro
+                        a.href=lavoro.getElementsByTagName("link")[0].textContent //deve essere il link del lavoro
+                        contenitore.appendChild(a);
+                        contenitore.innerHTML+="<br>"
+                    }
+                });
+            }else{
+                alert("Qualcosa è andato storto nel caricamento del file XML contenente i dati")
+                window.location.href="./index.html"
+            }
+        }
+        lettore.send();
+    </script>
+</body>
+</html>

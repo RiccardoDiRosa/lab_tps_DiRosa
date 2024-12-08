@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lavori>
+    <lavoro>
+        <titolo>ricetta lasagna alla bolognese</titolo>
+        <link>https://ricette.giallozafferano.it/Lasagne-alla-Bolognese.html</link>
+    </lavoro>
+    <lavoro>
+        <titolo>ricetta strudel di mele</titolo>
+        <link>https://ricette.giallozafferano.it/Strudel-di-mele.html</link>
+    </lavoro>
+</lavori>
