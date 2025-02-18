@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalizzazione con Leaflet</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map { height: 500px; width: 100%; }
+    </style>
+</head>
+<body>
+    <h1>La tua posizione sulla mappa</h1>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    // Creazione della mappa centrata sulla posizione dell'utente
+                    const map = L.map('map').setView([lat, lon], 13);
+
+                    // Aggiunta delle tile di OpenStreetMap
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; OpenStreetMap contributors'
+                    }).addTo(map);
+
+                    // Aggiunta di un marker alla posizione dell'utente
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup("Sei qui!").openPopup();
+                }, function(error) {
+                    console.error("Errore nel recupero della posizione:", error);
+                });
+            } else {
+                console.error("Geolocalizzazione non supportata dal browser.");
+            }
+        }
+
+        // Eseguire la funzione all'avvio della pagina
+        window.onload = initMap;
+    </script>
+</body>
+</html>
